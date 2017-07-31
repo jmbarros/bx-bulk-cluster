@@ -1,0 +1,21 @@
+---
+- name: Creating Bluemix Server
+  hosts: localhost
+  gather_facts: False
+  tasks:
+  - name: Creating the server 
+    sl_vm:
+      hostname: "{{ item }}"
+      domain: "cluster.local"
+      datacenter: sao01
+      tags: cluster
+      hourly: True
+      private: False
+      dedicated: False
+      local_disk: True
+      cpus: 1
+      memory: 1024
+      disks: [25]
+      os_code: CENTOS_LATEST_64
+      wait: False
+    with_lines: cat "./hosts_to_create.txt"
